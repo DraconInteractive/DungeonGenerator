@@ -116,6 +116,8 @@ public class LevelGenerator : MonoBehaviour
         //Meld colors between rooms by adjacency to create 'neighbourhoods'. This is going to be very unexciting as they are all ~red.
         yield return StartCoroutine(ColorNeighbourhoods(rr, new List<Edge>(dEdges)));
 
+        DeviateRoomHeights();
+
         //Use a minimum spanning tree to get simplest rendition of dungeon paths -- this one didnt work. Next one did :D
         /*
         List<Transform> vertices = new List<Transform>();
@@ -260,9 +262,15 @@ public class LevelGenerator : MonoBehaviour
         yield break;
     }
 
+    void DeviateRoomHeights ()
+    {
+        foreach (GameObject room in rooms)
+        {
+            room.transform.position += Vector3.up * UnityEngine.Random.Range(-1.0f, 1.0f);
+        }
+    }
     IEnumerator ColorNeighbourhoods (Dictionary<GameObject, Renderer> rr, List<Edge> delEdges)
     {
-        
         //Create a weird sort of adjacency graph. 
         Dictionary<GameObject, List<GameObject>> roomN = new Dictionary<GameObject, List<GameObject>>();
         //Get neighbours using minNeighbourDist
@@ -296,9 +304,6 @@ public class LevelGenerator : MonoBehaviour
                 {
                     r.material.color = Color.Lerp(r.material.color, rr[n].material.color, colorCorrection);
                 }
-
-                yield return null;
-
             }
             yield return null;
         }
@@ -311,9 +316,17 @@ public class LevelGenerator : MonoBehaviour
         {
             GameObject spawned = Instantiate(cubePrefab, this.transform);
             spawned.name = "Hallway";
+            //Not really needed, but useful for me in scene view. 
+            Destroy(spawned.GetComponent<Collider>());
 
             spawned.transform.position = (e.start.position + e.end.position) / 2;
             spawned.transform.localScale = Vector3.one * hallwayWidth;
+
+            spawned.transform.LookAt(e.start.position);
+
+            Vector3 s = spawned.transform.localScale;
+            s.z = Vector3.Distance(e.start.position, e.end.position) * 0.9f;
+            spawned.transform.localScale = s;
 
             hallways.Add(e, spawned);
         }
