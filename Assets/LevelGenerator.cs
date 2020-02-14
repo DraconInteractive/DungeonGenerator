@@ -14,8 +14,9 @@ public class LevelGenerator : MonoBehaviour
     //neighbourDist = max distance for node to be classified as neighbour for color gen, starting point for mst gen
     //colorCorrection = amount to lerp color per frame when creating "neighbourhoods" (purely aesthetic, just for me)
     public float roomSize, correctionDelta, minVariance, randomVariance, neighbourDist, colorCorrection, minRoomSize, hallwayWidth;
-    //Room prefab. 
+    //Room prefab + cube. Both are cubes atm, just separating for future use. 
     public GameObject cubePrefab;
+    public GameObject[] roomTypes;
     //track all generated rroms
     public List<GameObject> rooms = new List<GameObject>();
     public Dictionary<Edge, GameObject> hallways = new Dictionary<Edge, GameObject>();
@@ -24,9 +25,12 @@ public class LevelGenerator : MonoBehaviour
     //Stats to track minimum and maximum size of the generated rooms;
     float minSize = Mathf.Infinity;
     float maxSize = 0;
+
+    List<Transform> deadEnds;
     //Main coroutine. Is coroutine so I can stagger it so it doesnt happen in one frame. This is for visualisation + performance. 
     public IEnumerator GenerateLevel()
     {
+        float startTime = Time.time;
         //Generate init building offsets
         //Do this by creating random positions inside sphere. 
         Vector3[] points = RandomPoints();
@@ -103,6 +107,7 @@ public class LevelGenerator : MonoBehaviour
         edges = dEdges;
 
         //Wait for space to continue (useful for visualising delaunay)
+        /*
         bool c = false;
         while (!c)
         {
@@ -111,7 +116,7 @@ public class LevelGenerator : MonoBehaviour
                 c = true;
             }
             yield return null;
-        }
+        }*/
 
         //Meld colors between rooms by adjacency to create 'neighbourhoods'. This is going to be very unexciting as they are all ~red.
         yield return StartCoroutine(ColorNeighbourhoods(rr, new List<Edge>(dEdges)));
@@ -130,6 +135,33 @@ public class LevelGenerator : MonoBehaviour
         print("Done");
 
         yield return StartCoroutine(GenerateHallways(edges));
+
+        //Create a graph tracking edges->nodes. Should probably do this up abve to make other things more efficient. Later.
+        Dictionary<Transform, List<Edge>> graph = new Dictionary<Transform, List<Edge>>();
+        deadEnds = new List<Transform>();
+        foreach (GameObject room in rooms)
+        {
+            graph.Add(room.transform, new List<Edge>());
+            foreach (Edge e in edges)
+            {
+                if (e.start == room.transform || e.end == room.transform)
+                {
+                    graph[room.transform].Add(e);
+                }
+            }
+        }
+
+        foreach (Transform t in graph.Keys)
+        {
+            if (graph[t].Count == 1)
+            {
+                //Is dead end.
+                deadEnds.Add(t);
+            }
+        }
+        float endTime = Time.time;
+        float duration = endTime - startTime;
+        print("Total time taken: " + duration);
         yield break;
     }
     //Does what the name says. Outsourcing it to this function to clean up my main thread. 
@@ -147,8 +179,13 @@ public class LevelGenerator : MonoBehaviour
     {
         foreach (Vector3 v in points)
         {
+            //New variability mechanic! Use a frequency generator to determine what should be created from an array. 
+            int rSize = UnityEngine.Random.Range(0, roomTypes.Length - 1);
+
             //Spawn Room
-            GameObject g = Instantiate(cubePrefab, v, Quaternion.identity, this.transform);
+            GameObject g = Instantiate(roomTypes[rSize], v, Quaternion.identity, this.transform);
+            //Redoing scale to a more manual mechanic.
+            /*
             //Calculate random scale
             Vector3 scale = Vector3.one * minVariance + UnityEngine.Random.insideUnitSphere * randomVariance;
             scale.y = 2;
@@ -157,7 +194,11 @@ public class LevelGenerator : MonoBehaviour
             scale = ABS(scale);
 
             //Update metrics
-            float scaleMetric = scale.sqrMagnitude;
+
+            //Apply scale to object
+            g.transform.localScale = scale;*/
+
+            float scaleMetric = g.transform.localScale.sqrMagnitude;
             if (scaleMetric < minSize)
             {
                 minSize = scaleMetric;
@@ -166,8 +207,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 maxSize = scaleMetric;
             }
-            //Apply scale to object
-            g.transform.localScale = scale;
+
             //Add object to list 
             rooms.Add(g);
         }
@@ -342,7 +382,16 @@ public class LevelGenerator : MonoBehaviour
             {
                 Gizmos.DrawLine(key.start.transform.position, key.end.transform.position);
             }
+            Gizmos.color = Color.yellow;
+            if (deadEnds != null && deadEnds.Count > 0)
+            {
+                foreach (Transform t in deadEnds)
+                {
+                    Gizmos.DrawCube(t.position, Vector3.one * 10);
+                }
+            }
         }
+       
     }
     //Vector3 absolute value function
     Vector3 ABS (Vector3 input)
