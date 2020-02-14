@@ -150,12 +150,11 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
-
+        //Identify dead ends. 
         foreach (Transform t in graph.Keys)
         {
             if (graph[t].Count == 1)
             {
-                //Is dead end.
                 deadEnds.Add(t);
             }
         }
