@@ -218,7 +218,7 @@ public class LevelGenerator : MonoBehaviour
         Dictionary<GameObject, Collider> roomColliders = new Dictionary<GameObject, Collider>();
         foreach (GameObject room in rooms)
         {
-            roomColliders.Add(room, room.GetComponent<BoxCollider>());
+            roomColliders.Add(room, room.GetComponent<Collider>());
             Vector3 v = room.transform.position;
             v.y = 0;
             room.transform.position = v;
