@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9f85ca2b6aaa5499b9a8ddc4f29327, type: 3}
+  m_Name: D2_Corners
+  m_EditorClassIdentifier: 
+  models:
+  - name: FL
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 2
+    rightExit: 0
+    forwardExit: 2
+    backExit: 0
+    prefab: {fileID: 1493195251624758678, guid: 87d5ec201302d3c4db900b4ba28a6d3a,
+      type: 3}
+    frequency: 1
+  - name: FR
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 0
+    rightExit: 2
+    forwardExit: 2
+    backExit: 0
+    prefab: {fileID: 1493195251624758678, guid: 0f980995b0c8fce4fb7dce76db088b45,
+      type: 3}
+    frequency: 1
+  - name: BL
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 2
+    rightExit: 0
+    forwardExit: 0
+    backExit: 2
+    prefab: {fileID: 1493195251624758678, guid: 2ebe601c3494d514a98a8657a9cf3aae,
+      type: 3}
+    frequency: 1
+  - name: BR
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 0
+    rightExit: 2
+    forwardExit: 0
+    backExit: 2
+    prefab: {fileID: 1493195251624758678, guid: 4d6ad134a2fd2ca4686fffd8fb05fb41,
+      type: 3}
+    frequency: 1
+  - name: Intersection
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 2
+    rightExit: 2
+    forwardExit: 2
+    backExit: 2
+    prefab: {fileID: 1493195251624758678, guid: 867fe01d2add4fd42bd7b41943812836,
+      type: 3}
+    frequency: 1

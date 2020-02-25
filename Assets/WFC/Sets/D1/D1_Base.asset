@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9f85ca2b6aaa5499b9a8ddc4f29327, type: 3}
+  m_Name: D1_Base
+  m_EditorClassIdentifier: 
+  models:
+  - name: Front
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 0
+    rightExit: 0
+    forwardExit: 1
+    backExit: 0
+    prefab: {fileID: 1493195251624758678, guid: a1724eef117a81049bd794b1c5e36b34,
+      type: 3}
+    frequency: 1
+  - name: Back
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 0
+    rightExit: 0
+    forwardExit: 0
+    backExit: 1
+    prefab: {fileID: 1493195251624758678, guid: 258a15aa10de9324492c3373a6587a97,
+      type: 3}
+    frequency: 1
+  - name: Left
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 1
+    rightExit: 0
+    forwardExit: 0
+    backExit: 0
+    prefab: {fileID: 1493195251624758678, guid: 51679a2cff5a64a4893f623a15ea7b18,
+      type: 3}
+    frequency: 1
+  - name: Right
+    available: 1
+    upExit: 0
+    downExit: 0
+    leftExit: 0
+    rightExit: 1
+    forwardExit: 0
+    backExit: 0
+    prefab: {fileID: 1493195251624758678, guid: 620d68c5f01d0334e98e8978317f80fd,
+      type: 3}
+    frequency: 1
+  - name: Up
+    available: 0
+    upExit: 1
+    downExit: 0
+    leftExit: 0
+    rightExit: 0
+    forwardExit: 0
+    backExit: 0
+    prefab: {fileID: 0}
+    frequency: 1
+  - name: Down
+    available: 0
+    upExit: 0
+    downExit: 1
+    leftExit: 0
+    rightExit: 0
+    forwardExit: 0
+    backExit: 0
+    prefab: {fileID: 0}
+    frequency: 1
