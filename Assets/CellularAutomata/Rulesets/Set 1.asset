@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7faf6be873b2c9b4c82762801912ddec, type: 3}
+  m_Name: Set 1
+  m_EditorClassIdentifier: 
+  rulesets:
+  - name: Empty
+    _IDs: 00000000000000000000000000000000
+    result: 1
+  - name: Above
+    _IDs: 01000000000000000000000000000000
+    result: 1
+  - name: Below
+    _IDs: 00000000010000000000000000000000
+    result: 1
+  - name: Left
+    _IDs: 00000000000000000100000000000000
+    result: 0
+  - name: Right
+    _IDs: 00000000000000000000000001000000
+    result: 1
+  - name: AB
+    _IDs: 01000000010000000000000000000000
+    result: 1
+  - name: LR
+    _IDs: 00000000000000000100000001000000
+    result: 0
+  - name: All
+    _IDs: 01000000010000000100000001000000
+    result: 0
+  - name: AR
+    _IDs: 01000000000000000000000001000000
+    result: 0
+  - name: AL
+    _IDs: 01000000000000000100000000000000
+    result: 1
+  - name: BR
+    _IDs: 00000000010000000000000001000000
+    result: 1
+  - name: BL
+    _IDs: 00000000010000000100000000000000
+    result: 1
+  - name: ALR
+    _IDs: 01000000000000000100000001000000
+    result: 1
+  - name: BLR
+    _IDs: 00000000010000000100000001000000
+    result: 0
+  - name: ABL
+    _IDs: 01000000010000000100000000000000
+    result: 0
+  - name: ABR
+    _IDs: 01000000010000000000000001000000
+    result: 1
